@@ -178,7 +178,7 @@ class Partition:
 		# TODO: Maybe incorporate a re-try system here based on time.sleep(max(0.1, storage.get('DISK_TIMEOUTS', 1)))
 
 		try:
-			output = SysCommand(f"lsblk --json -b -o+LOG-SEC,SIZE,PTTYPE,PARTUUID,UUID,FSTYPE {self.device_path}").decode('UTF-8')
+			output = SysCommand(f"lsblk -a -e 8 --json -b -o+LOG-SEC,SIZE,PTTYPE,PARTUUID,UUID,FSTYPE {self.device_path}").decode('UTF-8')
 		except SysCallError as error:
 			# It appears as if lsblk can return exit codes like 8192 to indicate something.
 			# But it does return output so we'll try to catch it.
